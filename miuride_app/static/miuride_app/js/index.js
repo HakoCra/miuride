@@ -19,3 +19,28 @@ function starting() {
 
   node.style.margin = '-100vh 0 0 0';
 }
+
+function getAndLocatePoints(category) {
+  url = '';
+  if (category) {
+    url = "/api/v1/tourism_point/?category=" + category;
+  } else {
+    url = "/api/v1/tourism_point/"
+  }
+  $.ajax({
+    url: url
+  }).done(function(data) {
+    for (point in data) {
+      if (data.hasOwnProperty(point)) {
+        console.log(data[point]);
+      }
+    }
+  }).fail(function(data) {
+    console.log('error');
+    console.log(data);
+  });
+}
+
+$(function(){
+  getAndLocatePoints();
+});
