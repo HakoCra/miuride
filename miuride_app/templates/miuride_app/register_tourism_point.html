@@ -5,11 +5,15 @@
 <body>
 
 <form action="{% url 'index:register_tourism_point' %}" method="post">
-  <input type="text" name="name">
-  <input type="text" name="lat">
-  <input type="text" name="lng">
+  <label for="name">観光ポイント名</label>
+  <input id="name" type="text" name="name">
+  <label for="lat">緯度</label>
+  <input id="lat" type="text" name="lat">
+  <label for="lng">軽度</label>
+  <input id="lng" type="text" name="lng">
   {% csrf_token %}
-  <select name="category" multiple>
+  <label for="category">カテゴリー</label>
+  <select id="category" name="category" multiple>
     <option value="tourism">観光名所</option>
     <option value="gourmet">食事処</option>
     <option value="public">公共施設</option>
