@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 class TourismPoint(models.Model):
@@ -16,3 +17,7 @@ class TourismCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UUID(models.Model):
+    uuid = models.CharField(max_length=36, default=str(uuid.uuid4()))
