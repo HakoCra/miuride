@@ -19,6 +19,11 @@ class TourismPointViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny, )
     queryset = TourismPoint.objects.all()
     filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('name', )
+
+
+class TourismCategory():
+    pass
 
 router = routers.DefaultRouter()
 router.register(r'tourism_point', TourismPointViewSet, base_name='tourism_point')
