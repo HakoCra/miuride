@@ -130,3 +130,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (BASE_DIR,)
+
+
+GCP_API_KEY = os.getenv('GCP_API_KEY')
