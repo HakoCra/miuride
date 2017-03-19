@@ -10,6 +10,10 @@ class TourismPoint(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def categories(self):
+        return TourismCategory.objects.filter(tourism_point=self)
+
 
 class TourismCategory(models.Model):
     name = models.CharField('カテゴリ名', max_length=32)
