@@ -16,11 +16,18 @@ def index(request):
 
 class TourismFilter(django_filters.rest_framework.FilterSet):
     category = django_filters.CharFilter(name='tourismcategory__name')
-    filter_fields = ('name', 'category', )
+    in_range = django_filters.NumberFilter(name='in_range', method='filter_in_range')
+    filter_fields = ('name', 'category', 'in_range')
+
+    def filter_in_range(self, queryset, name, value):
+        print(queryset)
+        print(name)
+        print(value)
+        return queryset
 
     class Meta:
         model = TourismPoint
-        fields = ['category', 'name', ]
+        fields = ['category', 'name', 'in_range']
 
 
 class TourismPointViewSet(viewsets.ModelViewSet):
