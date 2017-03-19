@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from django.conf import settings
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -15,6 +16,14 @@ from .serializer import TourismPointSerializer
 def index(request):
     key = settings.GCP_API_KEY
     return render(request, 'miuride_app/index.html', {'key': key})
+
+
+def post_location(request):
+    if request.method == 'POST':
+        lat = request.POST['lat']
+        lng = request.POST['lng']
+        pass
+    return JsonResponse({})
 
 
 class TourismFilter(django_filters.rest_framework.FilterSet):
