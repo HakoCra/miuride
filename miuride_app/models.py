@@ -23,7 +23,7 @@ class UUID(models.Model):
     uuid = models.CharField(max_length=36, default=str(uuid.uuid4()))
 
 
-class Location(models.Model):
+class Breadcrumb(models.Model):
     uuid = models.ForeignKey(UUID)
     created_at = models.DateTimeField(auto_created=True)
     lat = models.DecimalField(max_digits=12, decimal_places=8)
