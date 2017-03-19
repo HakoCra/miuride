@@ -34,6 +34,10 @@ def post_location(request):
     return JsonResponse({})
 
 
+def register_tourism_point(request):
+    return render(request, 'miuride_app/register_tourism_point.html')
+
+
 class TourismFilter(django_filters.rest_framework.FilterSet):
     category = django_filters.CharFilter(name='tourismcategory__name')
     in_range = django_filters.NumberFilter(name='in_range', method='filter_in_range')
