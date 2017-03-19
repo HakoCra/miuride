@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.conf import settings
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import routers
@@ -12,7 +13,8 @@ from .serializer import TourismPointSerializer
 
 
 def index(request):
-    return render(request, 'miuride_app/index.html')
+    key = settings.GCP_API_KEY
+    return render(request, 'miuride_app/index.html', {'key': key})
 
 
 class TourismFilter(django_filters.rest_framework.FilterSet):
