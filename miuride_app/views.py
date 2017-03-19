@@ -8,6 +8,8 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import TourismPoint
+from .models import UUID
+from .models import Breadcrumb
 from miuride_app.utils.geometry import get_distance
 
 from .serializer import TourismPointSerializer
@@ -20,9 +22,15 @@ def index(request):
 
 def post_location(request):
     if request.method == 'POST':
+        if 'uuid' in request.session:
+            uuid = UUID.objects.get(uuid=request.session['uuid'])
+        else:
+            uuid = UUID()
+            request.session['uuid'] = uuid
         lat = request.POST['lat']
         lng = request.POST['lng']
-        pass
+        location = Breadcrumb(uuid=uuid, lat=lat, lng=lng)
+        location.save()
     return JsonResponse({})
 
 
