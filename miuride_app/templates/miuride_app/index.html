@@ -1,17 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <link rel="stylesheet" href="css/index.css">
-    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="stylesheet" href="{% static 'miuride_app/css/index.css' %}">
+    <script type="text/javascript" src="{% static 'miuride_app/js/index.js' %}"></script>
     <title>みうライド</title>
   </head>
   <body>
     <div class="wrapper">
       <div id="startPage" class="started">
         <a class="started__content" onclick="starting()">
-          <img class="started__content__image" src="images/logo.png" alt="">
+          <img class="started__content__image" src="{% static 'miuride_app/images/logo.png' %}" alt="">
           <p class="started__content__text">Tap to Start</p>
         </a>
       </div>
@@ -37,7 +38,7 @@
               <hr class="header__btnWrapper__bar is-third">
             </div>
             <div class="header__title">
-              <img src="images/title.png" alt="みうライド">
+              <img src="{% static 'miuride_app/images/title.png' %}" alt="みうライド">
             </div>
           </div>
           <div class="gmap">
