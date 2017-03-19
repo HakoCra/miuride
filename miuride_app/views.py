@@ -14,16 +14,22 @@ def index(request):
     return render(request, 'miuride_app/index.html')
 
 
+class TourismFilter(django_filters.rest_framework.FilterSet):
+    category = django_filters.CharFilter(name='tourismcategory__name')
+    filter_fields = ('name', 'category', )
+
+    class Meta:
+        model = TourismPoint
+        fields = ['category', 'name', ]
+
+
 class TourismPointViewSet(viewsets.ModelViewSet):
     serializer_class = TourismPointSerializer
     permission_classes = (permissions.AllowAny, )
     queryset = TourismPoint.objects.all()
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('name', )
+    filter_class = TourismFilter
 
-
-class TourismCategory():
-    pass
 
 router = routers.DefaultRouter()
 router.register(r'tourism_point', TourismPointViewSet, base_name='tourism_point')
