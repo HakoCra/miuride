@@ -8,6 +8,7 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import TourismPoint
+from .models import TourismCategory
 from .models import UUID
 from .models import Breadcrumb
 from miuride_app.utils.geometry import get_distance
@@ -35,6 +36,16 @@ def post_location(request):
 
 
 def register_tourism_point(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        lat = request.POST['lat']
+        lng = request.POST['lng']
+        categories = request.POST.getlist('category')
+        tp = TourismPoint(name=name, lat=lat, lng=lng)
+        tp.save()
+        for category in categories:
+            tc = TourismCategory(name=category, tourism_point=tp)
+            tc.save()
     return render(request, 'miuride_app/register_tourism_point.html')
 
 
