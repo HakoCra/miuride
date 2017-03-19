@@ -8,21 +8,12 @@ var speecher = new webkitSpeechRecognition();
 
 speecher.addEventListener('result', function(e) {
 	var text = e.results[0][0].transcript;
-	console.log(text);
+	addTweet(text);
 });
 
-
 function tweet() {
-	var tweetMsg = document.getElementById('tweetMsg');
-	if(tweetMsg.value !== "") {
-		socketio.emit("chat", {value:tweetMsg.value, lat:lat, lng:lng});
-		tweetMsg.value = "";
-	} else {
-		speecher.lang = "ja";
 		speecher.start();
-	}
 }
-
 
 function addTweet(chat) {
 	if(speechFlag) {
@@ -44,5 +35,3 @@ function addTweet(chat) {
 	*/
 
 }
-
-addTweet('こんばんはー');
