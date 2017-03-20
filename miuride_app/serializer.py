@@ -15,4 +15,4 @@ class TourismPointSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TourismPoint
-        fields = ('id', 'name', 'lat', 'lng', 'categories')
+        fields = ('id', 'name', 'description', 'lat', 'lng', 'categories')
