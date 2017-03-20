@@ -1,4 +1,9 @@
 var tabMargin = 0;
+var flgLocate = 0;
+
+if(navigator.geolocation) {
+  flgLocate = 1;
+}
 
 function tabSwitch(btn) {
   var node = document.getElementById('main');
@@ -15,9 +20,11 @@ function tabSwitch(btn) {
 }
 
 function starting() {
-  var node = document.getElementById('startPage');
+  if(flgLocate == '1') {
+    var node = document.getElementById('startPage');
 
-  node.style.margin = '-100vh 0 0 0';
+    node.style.margin = '-100vh 0 0 0';
+  }
 }
 
 function getAndLocatePoints(category) {
