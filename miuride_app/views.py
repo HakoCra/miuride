@@ -36,6 +36,7 @@ def post_location(request):
 
 
 def register_tourism_point(request):
+    error = None
     if request.method == 'POST':
         try:
             name = request.POST['name']
@@ -48,9 +49,9 @@ def register_tourism_point(request):
             for category in categories:
                 tc = TourismCategory(name=category, tourism_point=tp)
                 tc.save()
-        except:  # 応急処置
-            pass
-    return render(request, 'miuride_app/register_tourism_point.html')
+        except Exception as e:
+            error = e
+    return render(request, 'miuride_app/register_tourism_point.html', {'error': error})
 
 
 class TourismFilter(django_filters.rest_framework.FilterSet):

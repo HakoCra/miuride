@@ -9,6 +9,7 @@
 <div class="wrapper">
   <h1>データ入力画面</h1>
   <div class="inputContent">
+    {{ error }}
     <form action="{% url 'index:register_tourism_point' %}" method="post">
       <div class="inputContent__item">
         <label for="name">観光ポイント名</label>
