@@ -3,6 +3,7 @@ var options;
 var map;
 var markers = [];
 var circles = [];
+var me;
 
 /* スタイル配列 */
 var stylesArray = [
@@ -62,7 +63,9 @@ function setLate(position) {
       mapTypeControlOptions: {
          mapTypeIds: [google.maps.MapTypeId.ROADMAP, myMaptypeId]
       },
-      mapTypeId:myMaptypeId
+      mapTypeId:myMaptypeId,
+      disableDefaultUI: true
+
 
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), options);
@@ -73,12 +76,20 @@ function setLate(position) {
       /* 最大ズームレベル */
       maxZoom: 20,
       /* ボタンに表示する名前 */
-      name: "スカイツリー"
+      name: "スカイツリー",
   };
   var myMapType = new google.maps.StyledMapType(stylesArray, styledMapOptions);
   map.mapTypes.set(myMaptypeId, myMapType);
 }
 
+function setPositionHere()
+{
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    me = makeMarker('', {lat: lat, lng: lng}, '');
+  });
+}
 
 function errorLate(position) {
   latlng = new google.maps.LatLng(35.66, 139.69);
@@ -96,7 +107,20 @@ function makeMarker(title, position, message) {
     title: title,
     position: position,
     message: message,
-    animation: google.maps.Animation.DROP
+  });
+}
+
+function makeMyMarker(title, position, message) {
+  var image = {
+    url :'/static/miuride_app/images/car_marker.png',
+    scaledSize : new google.maps.Size(30, 30)
+  };
+  return new google.maps.Marker({
+    map: map,
+    title: title,
+    position: position,
+    message: message,
+    icon:image
   });
 }
 
@@ -141,11 +165,29 @@ function getAndLocatePoints(category) {
   });
 }
 
-function initMap(){
-  getAndLocatePoints(false);
-}
-
-map = $('.gmap');
+document.addEventListener('keydown', function (event) {
+  console.log(me);
+  if (me && me.setMap !== undefined) {
+      var lat = me.position.lat;
+      var lng = me.position.lng;
+      if (event.key == 'a') {
+        me.setMap(null);
+        me = makeMyMarker('myMarker', {lat: lat(), lng: lng() - 0.0001}, '');
+      } else if (event.key == 'd') {
+        me.setMap(null);
+        me = makeMyMarker('myMarker', {lat: lat(), lng: lng() + 0.0001}, '');
+      }
+      if (event.key == 'w') {
+        me.setMap(null);
+        me = makeMyMarker('myMarker', {lat: lat() + 0.0001, lng: lng()}, '');
+      } else if (event.key == 's') {
+        me.setMap(null);
+        me = makeMyMarker('myMarker', {lat: lat() - 0.0001, lng: lng()}, '');
+      }
+  } else {
+    setPositionHere()
+  }
+});
 
 function removeMarkers() {
   for(var i = 0; i < markers.length; i++) {
@@ -160,7 +202,3 @@ function removeCircles() {
   }
   circles.length = 0;
 }
-
-$(function(){
-  setTimeout(1000, initMap());
-});
