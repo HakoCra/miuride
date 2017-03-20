@@ -50,6 +50,7 @@ body {
     width: 150px;
     border-right: solid 1px #ccc;
     box-shadow: 1px 1px #ccc;
+    overflow-y: auto;
   }
   &__content {
     width: 100vw;

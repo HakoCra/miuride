@@ -43,7 +43,8 @@ body {
   .main__tab {
     width: 150px;
     border-right: solid 1px #ccc;
-    box-shadow: 1px 1px #ccc; }
+    box-shadow: 1px 1px #ccc;
+    overflow-y: auto; }
   .main__content {
     width: 100vw; }
 
