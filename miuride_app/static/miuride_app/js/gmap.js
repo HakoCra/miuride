@@ -1,6 +1,8 @@
 var latlng;
 var options;
 var map;
+var markers = [];
+var circles = [];
 
 /* スタイル配列 */
 var stylesArray = [
@@ -87,3 +89,78 @@ function errorLate(position) {
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), options);
 }
+
+function makeMarker(title, position, message) {
+  return new google.maps.Marker({
+    map: map,
+    title: title,
+    position: position,
+    message: message,
+    animation: google.maps.Animation.DROP
+  });
+}
+
+function makeCircle(position) {
+  circle = new google.maps.Circle({
+    strokeColor: '#1e90ff',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#1e90ff',
+    fillOpacity: 0.35,
+    map: map,
+    center: {lat: position.lat, lng: position.lng},
+    radius: 200
+  });
+  return circle;
+}
+
+
+function getAndLocatePoints(category) {
+  url = '';
+  if (category) {
+    url = "/api/v1/tourism_point/?category=" + category;
+  } else {
+    url = "/api/v1/tourism_point/"
+  }
+  $.ajax({
+    url: url
+  }).done(function(data) {
+    removeMarkers();
+    removeCircles();
+    for (point in data) {
+      if (data.hasOwnProperty(point)) {
+        marker = makeMarker('test', {lat: parseFloat(data[point].lat), lng: parseFloat(data[point].lng)}, '');
+        markers.push(marker);
+        circle = makeCircle({lat: parseFloat(data[point].lat), lng: parseFloat(data[point].lng)});
+        circles.push(circle);
+      }
+    }
+  }).fail(function(data) {
+    console.log('error');
+    console.log(data);
+  });
+}
+
+function initMap(){
+  getAndLocatePoints(false);
+}
+
+map = $('.gmap');
+
+function removeMarkers() {
+  for(var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers.length = 0;
+}
+
+function removeCircles() {
+  for(var i = 0; i < circles.length; i++) {
+    circles[i].setMap(null);
+  }
+  circles.length = 0;
+}
+
+$(function(){
+  setTimeout(1000, initMap());
+});
