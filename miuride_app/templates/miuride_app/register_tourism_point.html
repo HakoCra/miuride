@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>新規登録</title>
+</head>
+<body>
+
+<form action="{% url 'index:register_tourism_point' %}" method="post">
+  <label for="name">観光ポイント名</label>
+  <input id="name" type="text" name="name">
+  <label for="lat">緯度</label>
+  <input id="lat" type="text" name="lat">
+  <label for="lng">軽度</label>
+  <input id="lng" type="text" name="lng">
+  {% csrf_token %}
+  <label for="category">カテゴリー</label>
+  <select id="category" name="category" multiple>
+    <option value="tourism">観光名所</option>
+    <option value="gourmet">食事処</option>
+    <option value="public">公共施設</option>
+    <option value="emergency">緊急</option>
+  </select>
+  <input type="submit" value="追加">
+</form>
+
+</body>
+</html>

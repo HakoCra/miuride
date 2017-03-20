@@ -25,7 +25,7 @@ SECRET_KEY = 't%)a007ej1sexbdai(g0-ery3h9ynjhp3_+!(^uhy*i$n@&+y@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -129,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (BASE_DIR,)
+
+
+GCP_API_KEY = os.getenv('GCP_API_KEY')
