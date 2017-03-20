@@ -38,10 +38,11 @@ def post_location(request):
 def register_tourism_point(request):
     if request.method == 'POST':
         name = request.POST['name']
+        description = request.POST['description']
         lat = request.POST['lat']
         lng = request.POST['lng']
         categories = request.POST.getlist('category')
-        tp = TourismPoint(name=name, lat=lat, lng=lng)
+        tp = TourismPoint(name=name, description=description, lat=lat, lng=lng)
         tp.save()
         for category in categories:
             tc = TourismCategory(name=category, tourism_point=tp)

@@ -4,6 +4,7 @@ import uuid
 
 class TourismPoint(models.Model):
     name = models.CharField('観光ポイント名', max_length=32)
+    description = models.TextField('詳細説明', max_length=256)
     lat = models.DecimalField(max_digits=12, decimal_places=8)
     lng = models.DecimalField(max_digits=12, decimal_places=8)
 
