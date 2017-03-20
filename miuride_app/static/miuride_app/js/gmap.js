@@ -154,6 +154,11 @@ function getAndLocatePoints(category) {
     for (point in data) {
       if (data.hasOwnProperty(point)) {
         marker = makeMarker('test', {lat: parseFloat(data[point].lat), lng: parseFloat(data[point].lng)}, '');
+        marker.description = data[point].description;
+        console.log(marker.description);
+        marker.addListener('click', function() {
+          addTweet('こんばんは');
+        });
         markers.push(marker);
         circle = makeCircle({lat: parseFloat(data[point].lat), lng: parseFloat(data[point].lng)});
         circles.push(circle);
